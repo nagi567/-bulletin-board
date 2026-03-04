@@ -47,7 +47,7 @@
     <div class="container">
         <div class="card">
             @if($post->image_path)
-                <img src="{{ asset('storage/' . $post->image_path) }}" alt="画像">
+                <img src="{{ Storage::disk('s3')->url($post->image_path) }}" alt="画像">
             @endif
             <div class="card-body">
                 <h2>{{ $post->title }}</h2>

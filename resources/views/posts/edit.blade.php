@@ -49,7 +49,7 @@
                     <label>画像</label>
                     @if($post->image_path)
                         <div class="current-image">
-                            <img src="{{ asset('storage/' . $post->image_path) }}" alt="現在の画像">
+                            <img src="{{ Storage::disk('s3')->url($post->image_path) }}" alt="現在の画像">
                         </div>
                     @endif
                     <input type="file" name="image">
