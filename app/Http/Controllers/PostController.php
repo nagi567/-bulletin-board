@@ -40,7 +40,7 @@ class PostController extends Controller
     // 画像があるかチェック
       if ($request->hasFile('image')) {
         // 画像を public フォルダの中に保存
-        $path = $request->file('image')->store('posts', 'public');
+        $path = $request->file('image')->store('posts', 's3');
     } else {
         $path = null;
     }
@@ -81,9 +81,9 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
         // 古い画像を削除
         if ($post->image_path) {
-            \Storage::disk('public')->delete($post->image_path);
+            \Storage::disk('s3')->delete($post->image_path);
         }
-        $path = $request->file('image')->store('posts', 'public');
+        $path = $request->file('image')->store('posts', 's3');
     } else {
         $path = $post->image_path;
     }
@@ -104,7 +104,7 @@ class PostController extends Controller
     {
           // 画像ファイルも削除
           if ($post->image_path) {
-              \Storage::disk('public')->delete($post->image_path);
+              \Storage::disk('s3')->delete($post->image_path);
           }
           $post->delete();
           return redirect()->route('posts.index');
